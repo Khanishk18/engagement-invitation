@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<!-- IMPORTANT FOR MOBILE -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Engagement Invitation</title>
 
 <style>
+
 /* BODY */
 body{
 margin:0;
@@ -57,18 +55,37 @@ width:100%;
 color:white;
 font-size:22px;
 z-index:11;
-padding:0 15px;
 }
 
-/* HEADINGS */
+/* HEADING */
 h1{
 color:#b48a3c;
-margin-bottom:10px;
 white-space:nowrap;
-font-size:clamp(20px, 5vw, 32px);
+font-size:clamp(20px,5vw,32px);
 }
-h2{
-margin-top:28px;
+
+/* COUPLE NAMES */
+.coupleNames{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.brideName,.groomName{
+font-size:clamp(22px,5vw,32px);
+font-weight:bold;
+color:#333;
+}
+
+.heartSymbol{
+font-size:clamp(24px,5vw,34px);
+margin:6px 0;
+display:flex;
+justify-content:center;
+width:100%;
 }
 
 /* SCRATCH */
@@ -76,7 +93,7 @@ margin-top:28px;
 position:relative;
 width:300px;
 height:150px;
-margin:0 auto;
+margin:auto;
 }
 
 #revealText{
@@ -89,14 +106,12 @@ align-items:center;
 justify-content:center;
 font-weight:bold;
 font-size:17px;
-line-height:1.4;
 }
 
 #scratchCanvas{
 position:absolute;
 top:0;
 left:0;
-border-radius:10px;
 }
 
 /* COUNTDOWN */
@@ -112,7 +127,6 @@ background:white;
 padding:12px;
 border-radius:10px;
 width:70px;
-box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
 
 .timeNumber{
@@ -123,7 +137,6 @@ color:#8b0000;
 
 .timeLabel{
 font-size:12px;
-color:#555;
 }
 
 /* VENUE */
@@ -137,7 +150,6 @@ font-size:26px;
 font-weight:bold;
 color:#b48a3c;
 margin-bottom:12px;
-letter-spacing:2px;
 }
 
 .venueImage{
@@ -154,7 +166,6 @@ background:#b48a3c;
 color:white;
 text-decoration:none;
 border-radius:8px;
-font-size:14px;
 }
 
 /* PETALS */
@@ -163,7 +174,6 @@ position:fixed;
 top:-20px;
 font-size:20px;
 animation:fall linear forwards;
-pointer-events:none;
 }
 
 @keyframes fall{
@@ -172,12 +182,13 @@ transform:translateY(110vh) rotate(360deg);
 }
 }
 
-/* MOBILE OPTIMIZATION */
-@media (max-width:480px){
+/* MOBILE */
+@media(max-width:480px){
 .ganeshTop{ width:55px; }
 .tapText{ font-size:18px; }
 #scratchContainer{ width:260px; height:140px; }
 }
+
 </style>
 </head>
 
@@ -195,7 +206,11 @@ transform:translateY(110vh) rotate(360deg);
 
 <h1>💍 Engagement Invitation 💍</h1>
 
-<h2>Yasaswi Narra ❤️ Vineeth Balagala</h2>
+<div class="coupleNames">
+<div class="brideName">Yasaswi Narra</div>
+<div class="heartSymbol">❤️</div>
+<div class="groomName">Vineeth Balagala</div>
+</div>
 
 <p>
 With the blessings of our elders and the love of our family and friends,<br>
@@ -240,6 +255,7 @@ target="_blank">
 </div>
 
 <script>
+
 /* CURTAIN */
 let curtainOpened=false;
 document.addEventListener("click",()=>{
@@ -253,6 +269,7 @@ curtainOpened=true;
 /* SCRATCH */
 let canvas=document.getElementById("scratchCanvas");
 let ctx=canvas.getContext("2d");
+
 ctx.fillStyle="#c0c0c0";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
@@ -314,6 +331,7 @@ document.getElementById("hours").innerHTML=Math.floor((gap%(1000*60*60*24))/(100
 document.getElementById("minutes").innerHTML=Math.floor((gap%(1000*60*60))/(1000*60));
 document.getElementById("seconds").innerHTML=Math.floor((gap%(1000*60))/1000);
 },1000);
+
 </script>
 
 </body>
