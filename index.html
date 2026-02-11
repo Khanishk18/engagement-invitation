@@ -108,6 +108,22 @@ position:absolute;
 top:0;
 left:0;
 }
+.paper{
+position:fixed;
+top:-30px;
+font-size:22px;
+pointer-events:none;
+animation:paperFall linear forwards;
+z-index:999;
+}
+
+@keyframes paperFall{
+to{
+transform:translateY(110vh) rotate(360deg);
+opacity:0.9;
+}
+}
+
 
 /* COUNTDOWN */
 .countdown{
@@ -274,7 +290,9 @@ if(revealed) return;
 revealed=true;
 ctx.clearRect(0,0,canvas.width,canvas.height);
 document.getElementById("scratchTitle").style.display="none";
+paperFall();   // ⭐ ADD THIS LINE
 }
+
 
 canvas.addEventListener("mousedown",()=> isDrawing=true);
 canvas.addEventListener("mousemove",scratch);
@@ -282,6 +300,31 @@ canvas.addEventListener("mouseup",()=>{isDrawing=false;fullReveal();});
 canvas.addEventListener("touchstart",()=> isDrawing=true);
 canvas.addEventListener("touchmove",scratch);
 canvas.addEventListener("touchend",()=>{isDrawing=false;fullReveal();});
+
+function paperFall(){
+for(let i=0;i<30;i++){
+
+let p=document.createElement("div");
+p.className="paper";
+
+/* You can change emoji here */
+let papers = ["📜","📄","✨","💮"];
+p.innerHTML = papers[Math.floor(Math.random()*papers.length)];
+
+p.style.left = Math.random()*100 + "vw";
+p.style.animationDuration = (3 + Math.random()*3) + "s";
+p.style.fontSize = (18 + Math.random()*12) + "px";
+
+document.body.appendChild(p);
+
+/* Remove after animation */
+setTimeout(()=>{
+p.remove();
+},6000);
+
+}
+}
+
 
 /* COUNTDOWN */
 let countDate=new Date("March 4, 2026 09:58:00").getTime();
