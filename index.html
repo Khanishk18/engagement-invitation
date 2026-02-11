@@ -2,33 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<!-- IMPORTANT FOR MOBILE -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Engagement Invitation</title>
 
 <style>
-
-/* FORCE DESKTOP LOOK */
+/* BODY */
 body{
 margin:0;
 font-family: Arial, sans-serif;
 background:#f7efe5;
 text-align:center;
-min-width:900px;
+overflow-x:hidden;
 }
 
 /* CONTAINER */
 .container{
-width:700px;
+max-width:720px;
 margin:auto;
-padding:30px 20px;
+padding:25px 16px;
 }
 
 /* GANESH */
 .ganeshTop{
 position:fixed;
-top:15px;
-right:20px;
-width:80px;
+top:12px;
+right:14px;
+width:70px;
 z-index:20;
+pointer-events:none;
 }
 
 /* CURTAINS */
@@ -51,19 +55,26 @@ position:fixed;
 top:45%;
 width:100%;
 color:white;
-font-size:24px;
+font-size:22px;
 z-index:11;
+padding:0 15px;
 }
 
-h1{ color:#b48a3c; }
-h2{ margin-top:30px; }
+/* HEADINGS */
+h1{
+color:#b48a3c;
+margin-bottom:10px;
+}
+h2{
+margin-top:28px;
+}
 
 /* SCRATCH */
 #scratchContainer{
 position:relative;
 width:300px;
 height:150px;
-margin:auto;
+margin:0 auto;
 }
 
 #revealText{
@@ -75,20 +86,23 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 font-weight:bold;
-font-size:18px;
+font-size:17px;
+line-height:1.4;
 }
 
 #scratchCanvas{
 position:absolute;
 top:0;
 left:0;
+border-radius:10px;
 }
 
 /* COUNTDOWN */
 .countdownContainer{
 display:flex;
 justify-content:center;
-gap:12px;
+gap:10px;
+flex-wrap:wrap;
 }
 
 .timeBox{
@@ -96,6 +110,7 @@ background:white;
 padding:12px;
 border-radius:10px;
 width:70px;
+box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
 
 .timeNumber{
@@ -106,35 +121,38 @@ color:#8b0000;
 
 .timeLabel{
 font-size:12px;
+color:#555;
 }
 
 /* VENUE */
 .venueBox{
-width:600px;
-margin:auto;
+width:100%;
+margin-top:10px;
 }
 
 .venueName{
-font-size:28px;
+font-size:26px;
 font-weight:bold;
 color:#b48a3c;
-margin-bottom:10px;
+margin-bottom:12px;
+letter-spacing:2px;
 }
 
 .venueImage{
 width:100%;
-border-radius:15px;
+border-radius:14px;
 box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
 .mapBtn{
 display:inline-block;
-margin-top:15px;
-padding:10px 20px;
+margin-top:14px;
+padding:10px 22px;
 background:#b48a3c;
 color:white;
 text-decoration:none;
 border-radius:8px;
+font-size:14px;
 }
 
 /* PETALS */
@@ -143,6 +161,7 @@ position:fixed;
 top:-20px;
 font-size:20px;
 animation:fall linear forwards;
+pointer-events:none;
 }
 
 @keyframes fall{
@@ -151,13 +170,21 @@ transform:translateY(110vh) rotate(360deg);
 }
 }
 
+/* MOBILE OPTIMIZATION */
+@media (max-width:480px){
+.ganeshTop{ width:55px; }
+.tapText{ font-size:18px; }
+#scratchContainer{ width:260px; height:140px; }
+}
 </style>
 </head>
 
 <body>
 
+<!-- GANESH -->
 <img src="images/ganesh1-removebg-preview.png" class="ganeshTop">
 
+<!-- CURTAINS -->
 <div class="curtain left"></div>
 <div class="curtain right"></div>
 <div class="tapText">✨ Tap Anywhere To Open Invitation ✨</div>
@@ -169,8 +196,8 @@ transform:translateY(110vh) rotate(360deg);
 <h2>Yasaswi Narra ❤️ Vineeth Balagala</h2>
 
 <p>
-With the blessings of our elders and the love of our family and friends,  
-we warmly welcome you to join us in celebrating this beautiful beginning  
+With the blessings of our elders and the love of our family and friends,<br>
+we warmly welcome you to join us in celebrating this beautiful beginning<br>
 of our new journey together.
 </p>
 
@@ -178,9 +205,9 @@ of our new journey together.
 
 <div id="scratchContainer">
 <div id="revealText">
-4 March 2026<br><br>
-💍<br><br>
-Muhurtham 9:58 AM<br><br>
+4 March 2026<br>
+💍<br>
+Muhurtham 9:58 AM<br>
 ✨ We're Getting Engaged ✨
 </div>
 <canvas id="scratchCanvas" width="300" height="150"></canvas>
@@ -211,7 +238,6 @@ target="_blank">
 </div>
 
 <script>
-
 /* CURTAIN */
 let curtainOpened=false;
 document.addEventListener("click",()=>{
@@ -225,7 +251,6 @@ curtainOpened=true;
 /* SCRATCH */
 let canvas=document.getElementById("scratchCanvas");
 let ctx=canvas.getContext("2d");
-
 ctx.fillStyle="#c0c0c0";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
@@ -265,7 +290,7 @@ canvas.addEventListener("touchend",()=>{isDrawing=false;fullReveal();});
 
 /* PETALS */
 function petalFall(){
-for(let i=0;i<25;i++){
+for(let i=0;i<24;i++){
 let p=document.createElement("div");
 p.className="petal";
 p.innerHTML="🌸";
@@ -287,7 +312,6 @@ document.getElementById("hours").innerHTML=Math.floor((gap%(1000*60*60*24))/(100
 document.getElementById("minutes").innerHTML=Math.floor((gap%(1000*60*60))/(1000*60));
 document.getElementById("seconds").innerHTML=Math.floor((gap%(1000*60))/1000);
 },1000);
-
 </script>
 
 </body>
