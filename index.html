@@ -13,24 +13,51 @@ margin:0;
 font-family: Arial, sans-serif;
 background:#f7efe5;
 text-align:center;
-overflow-x:hidden;
 }
 
 /* CONTAINER */
 .container{
 max-width:720px;
 margin:auto;
-padding:25px 16px;
+padding:20px 16px;
 }
 
-/* GANESH */
-.ganeshTop{
-position:fixed;
-top:12px;
-right:14px;
-width:70px;
-z-index:20;
-pointer-events:none;
+/* GANESH TOP BAR */
+.topGanesh{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.ganeshImg{
+width:65px;
+}
+
+/* HEADING */
+.heading{
+color:#b48a3c;
+font-weight:bold;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+font-size:clamp(16px, 4vw, 32px);
+}
+
+/* COUPLE NAMES */
+.couple{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.name{
+font-size:clamp(24px,5vw,32px);
+font-weight:bold;
+}
+
+.heart{
+font-size:clamp(26px,5vw,34px);
+margin:6px 0;
 }
 
 /* CURTAINS */
@@ -53,50 +80,8 @@ position:fixed;
 top:45%;
 width:100%;
 color:white;
-font-size:22px;
+font-size:20px;
 z-index:11;
-}
-
-/* HEADING */
-h1{
-color:#b48a3c;
-font-size:28px;
-}
-
-/* COUPLE NAMES (FORCED CENTER 3 LINES) */
-.coupleNames{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-margin-top:10px;
-margin-bottom:10px;
-}
-
-.brideName{
-font-size:28px;
-font-weight:bold;
-color:#333;
-width:100%;
-text-align:center;
-}
-
-.heartSymbol{
-font-size:26px;
-margin:8px 0;
-display:flex;
-justify-content:center;
-align-items:center;
-width:100%;
-}
-
-.groomName{
-font-size:28px;
-font-weight:bold;
-color:#333;
-width:100%;
-text-align:center;
 }
 
 /* SCRATCH */
@@ -116,7 +101,6 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 font-weight:bold;
-font-size:17px;
 }
 
 #scratchCanvas{
@@ -126,89 +110,58 @@ left:0;
 }
 
 /* COUNTDOWN */
-.countdownContainer{
+.countdown{
 display:flex;
 justify-content:center;
 gap:10px;
 flex-wrap:wrap;
 }
 
-.timeBox{
+.box{
 background:white;
-padding:12px;
+padding:10px;
 border-radius:10px;
-width:70px;
+width:65px;
 }
 
-.timeNumber{
-font-size:22px;
+.num{
+font-size:20px;
 font-weight:bold;
 color:#8b0000;
 }
 
-.timeLabel{
-font-size:12px;
+.label{
+font-size:11px;
 }
 
 /* VENUE */
-.venueBox{
-width:100%;
-margin-top:10px;
-}
-
 .venueName{
-font-size:26px;
+font-size:24px;
 font-weight:bold;
 color:#b48a3c;
-margin-bottom:12px;
+margin:10px 0;
 }
 
 .venueImage{
 width:100%;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
 .mapBtn{
 display:inline-block;
-margin-top:14px;
-padding:10px 22px;
+margin-top:12px;
+padding:9px 18px;
 background:#b48a3c;
 color:white;
 text-decoration:none;
 border-radius:8px;
 }
 
-/* PETALS */
-.petal{
-position:fixed;
-top:-20px;
-font-size:20px;
-animation:fall linear forwards;
-}
-
-@keyframes fall{
-to{
-transform:translateY(110vh) rotate(360deg);
-}
-}
-
-/* MOBILE */
-@media(max-width:480px){
-.ganeshTop{ width:55px; }
-.tapText{ font-size:18px; }
-#scratchContainer{ width:260px; height:140px; }
-.brideName,.groomName{ font-size:24px; }
-.heartSymbol{ font-size:24px; }
-}
-
 </style>
 </head>
 
 <body>
-
-<!-- GANESH -->
-<img src="images/ganesh1-removebg-preview.png" class="ganeshTop">
 
 <!-- CURTAINS -->
 <div class="curtain left"></div>
@@ -217,12 +170,22 @@ transform:translateY(110vh) rotate(360deg);
 
 <div class="container">
 
-<h1>💍 Engagement Invitation 💍</h1>
+<!-- GANESH LEFT RIGHT -->
+<div class="topGanesh">
+<img src="images/ganesh1-removebg-preview.png" class="ganeshImg">
+<img src="images/ganesh1-removebg-preview.png" class="ganeshImg">
+</div>
 
-<div class="coupleNames">
-<div class="brideName">Yasaswi Narra</div>
-<div class="heartSymbol">❤️</div>
-<div class="groomName">Vineeth Balagala</div>
+<!-- HEADING -->
+<div class="heading">
+💍 Engagement Invitation 💍
+</div>
+
+<!-- COUPLE -->
+<div class="couple">
+<div class="name">Yasaswi Narra</div>
+<div class="heart">❤️</div>
+<div class="name">Vineeth Balagala</div>
 </div>
 
 <p>
@@ -231,7 +194,7 @@ we warmly welcome you to join us in celebrating this beautiful beginning<br>
 of our new journey together.
 </p>
 
-<h2 id="scratchTitle">Scratch To Reveal</h2>
+<h3 id="scratchTitle">Scratch To Reveal</h3>
 
 <div id="scratchContainer">
 <div id="revealText">
@@ -243,27 +206,28 @@ Muhurtham 9:58 AM<br>
 <canvas id="scratchCanvas" width="300" height="150"></canvas>
 </div>
 
-<h2>Countdown</h2>
+<h3>Countdown</h3>
 
-<div class="countdownContainer">
-<div class="timeBox"><div id="days" class="timeNumber">0</div><div class="timeLabel">Days</div></div>
-<div class="timeBox"><div id="hours" class="timeNumber">0</div><div class="timeLabel">Hours</div></div>
-<div class="timeBox"><div id="minutes" class="timeNumber">0</div><div class="timeLabel">Minutes</div></div>
-<div class="timeBox"><div id="seconds" class="timeNumber">0</div><div class="timeLabel">Seconds</div></div>
+<div class="countdown">
+<div class="box"><div id="days" class="num">0</div><div class="label">Days</div></div>
+<div class="box"><div id="hours" class="num">0</div><div class="label">Hours</div></div>
+<div class="box"><div id="minutes" class="num">0</div><div class="label">Minutes</div></div>
+<div class="box"><div id="seconds" class="num">0</div><div class="label">Seconds</div></div>
 </div>
 
-<h2>The Celebration will take place at</h2>
+<h3>The Celebration will take place at</h3>
 
-<div class="venueBox">
 <div class="venueName">VIVAHA BHOJANAMBU</div>
+
 <img src="images/venue.jpg" class="venueImage">
+
+<br>
 
 <a class="mapBtn"
 href="https://maps.app.goo.gl/rFaaHWLkbk7HJa7J6"
 target="_blank">
 📍 View Location
 </a>
-</div>
 
 </div>
 
@@ -310,7 +274,6 @@ if(revealed) return;
 revealed=true;
 ctx.clearRect(0,0,canvas.width,canvas.height);
 document.getElementById("scratchTitle").style.display="none";
-petalFall();
 }
 
 canvas.addEventListener("mousedown",()=> isDrawing=true);
@@ -319,18 +282,6 @@ canvas.addEventListener("mouseup",()=>{isDrawing=false;fullReveal();});
 canvas.addEventListener("touchstart",()=> isDrawing=true);
 canvas.addEventListener("touchmove",scratch);
 canvas.addEventListener("touchend",()=>{isDrawing=false;fullReveal();});
-
-/* PETALS */
-function petalFall(){
-for(let i=0;i<24;i++){
-let p=document.createElement("div");
-p.className="petal";
-p.innerHTML="🌸";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(3+Math.random()*3)+"s";
-document.body.appendChild(p);
-}
-}
 
 /* COUNTDOWN */
 let countDate=new Date("March 4, 2026 09:58:00").getTime();
