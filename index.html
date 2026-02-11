@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engagement Invitation</title>
+
+<style>
+
+/* FORCE DESKTOP LOOK */
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#f7efe5;
+text-align:center;
+min-width:900px;
+}
+
+/* CONTAINER */
+.container{
+width:700px;
+margin:auto;
+padding:30px 20px;
+}
+
+/* GANESH */
+.ganeshTop{
+position:fixed;
+top:15px;
+right:20px;
+width:80px;
+z-index:20;
+}
+
+/* CURTAINS */
+.curtain{
+position:fixed;
+top:0;
+width:50%;
+height:100%;
+background:linear-gradient(90deg,#7a0000,#3b0000,#7a0000);
+z-index:10;
+transition:2s ease;
+}
+.left{ left:0; }
+.right{ right:0; }
+.open .left{ transform:translateX(-100%); }
+.open .right{ transform:translateX(100%); }
+
+.tapText{
+position:fixed;
+top:45%;
+width:100%;
+color:white;
+font-size:24px;
+z-index:11;
+}
+
+h1{ color:#b48a3c; }
+h2{ margin-top:30px; }
+
+/* SCRATCH */
+#scratchContainer{
+position:relative;
+width:300px;
+height:150px;
+margin:auto;
+}
+
+#revealText{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:18px;
+}
+
+#scratchCanvas{
+position:absolute;
+top:0;
+left:0;
+}
+
+/* COUNTDOWN */
+.countdownContainer{
+display:flex;
+justify-content:center;
+gap:12px;
+}
+
+.timeBox{
+background:white;
+padding:12px;
+border-radius:10px;
+width:70px;
+}
+
+.timeNumber{
+font-size:22px;
+font-weight:bold;
+color:#8b0000;
+}
+
+.timeLabel{
+font-size:12px;
+}
+
+/* VENUE */
+.venueBox{
+width:600px;
+margin:auto;
+}
+
+.venueName{
+font-size:28px;
+font-weight:bold;
+color:#b48a3c;
+margin-bottom:10px;
+}
+
+.venueImage{
+width:100%;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.mapBtn{
+display:inline-block;
+margin-top:15px;
+padding:10px 20px;
+background:#b48a3c;
+color:white;
+text-decoration:none;
+border-radius:8px;
+}
+
+/* PETALS */
+.petal{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<img src="images/ganesh1-removebg-preview.png" class="ganeshTop">
+
+<div class="curtain left"></div>
+<div class="curtain right"></div>
+<div class="tapText">✨ Tap Anywhere To Open Invitation ✨</div>
+
+<div class="container">
+
+<h1>💍 Engagement Invitation 💍</h1>
+
+<h2>Yasaswi Narra ❤️ Vineeth Balagala</h2>
+
+<p>
+With the blessings of our elders and the love of our family and friends,  
+we warmly welcome you to join us in celebrating this beautiful beginning  
+of our new journey together.
+</p>
+
+<h2 id="scratchTitle">Scratch To Reveal</h2>
+
+<div id="scratchContainer">
+<div id="revealText">
+4 March 2026<br><br>
+💍<br><br>
+Muhurtham 9:58 AM<br><br>
+✨ We're Getting Engaged ✨
+</div>
+<canvas id="scratchCanvas" width="300" height="150"></canvas>
+</div>
+
+<h2>Countdown</h2>
+
+<div class="countdownContainer">
+<div class="timeBox"><div id="days" class="timeNumber">0</div><div class="timeLabel">Days</div></div>
+<div class="timeBox"><div id="hours" class="timeNumber">0</div><div class="timeLabel">Hours</div></div>
+<div class="timeBox"><div id="minutes" class="timeNumber">0</div><div class="timeLabel">Minutes</div></div>
+<div class="timeBox"><div id="seconds" class="timeNumber">0</div><div class="timeLabel">Seconds</div></div>
+</div>
+
+<h2>The Celebration will take place at</h2>
+
+<div class="venueBox">
+<div class="venueName">VIVAHA BHOJANAMBU</div>
+<img src="images/venue.jpg" class="venueImage">
+
+<a class="mapBtn"
+href="https://maps.app.goo.gl/rFaaHWLkbk7HJa7J6"
+target="_blank">
+📍 View Location
+</a>
+</div>
+
+</div>
+
+<script>
+
+/* CURTAIN */
+let curtainOpened=false;
+document.addEventListener("click",()=>{
+if(!curtainOpened){
+document.body.classList.add("open");
+document.querySelector(".tapText").style.display="none";
+curtainOpened=true;
+}
+});
+
+/* SCRATCH */
+let canvas=document.getElementById("scratchCanvas");
+let ctx=canvas.getContext("2d");
+
+ctx.fillStyle="#c0c0c0";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+let isDrawing=false;
+let revealed=false;
+
+function getXY(e){
+let rect=canvas.getBoundingClientRect();
+let x=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
+let y=(e.touches?e.touches[0].clientY:e.clientY)-rect.top;
+return {x,y};
+}
+
+function scratch(e){
+if(!isDrawing) return;
+let pos=getXY(e);
+ctx.globalCompositeOperation="destination-out";
+ctx.beginPath();
+ctx.arc(pos.x,pos.y,25,0,Math.PI*2);
+ctx.fill();
+}
+
+function fullReveal(){
+if(revealed) return;
+revealed=true;
+ctx.clearRect(0,0,canvas.width,canvas.height);
+document.getElementById("scratchTitle").style.display="none";
+petalFall();
+}
+
+canvas.addEventListener("mousedown",()=> isDrawing=true);
+canvas.addEventListener("mousemove",scratch);
+canvas.addEventListener("mouseup",()=>{isDrawing=false;fullReveal();});
+canvas.addEventListener("touchstart",()=> isDrawing=true);
+canvas.addEventListener("touchmove",scratch);
+canvas.addEventListener("touchend",()=>{isDrawing=false;fullReveal();});
+
+/* PETALS */
+function petalFall(){
+for(let i=0;i<25;i++){
+let p=document.createElement("div");
+p.className="petal";
+p.innerHTML="🌸";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(p);
+}
+}
+
+/* COUNTDOWN */
+let countDate=new Date("March 4, 2026 09:58:00").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let gap=countDate-now;
+
+document.getElementById("days").innerHTML=Math.floor(gap/(1000*60*60*24));
+document.getElementById("hours").innerHTML=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+document.getElementById("minutes").innerHTML=Math.floor((gap%(1000*60*60))/(1000*60));
+document.getElementById("seconds").innerHTML=Math.floor((gap%(1000*60))/1000);
+},1000);
+
+</script>
+
+</body>
+</html>
